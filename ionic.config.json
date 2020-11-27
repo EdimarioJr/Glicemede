@@ -1,0 +1,7 @@
+{
+  "name": "glicemede",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
