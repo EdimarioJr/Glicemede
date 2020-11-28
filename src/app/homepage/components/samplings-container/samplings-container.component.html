@@ -1,0 +1,13 @@
+<section *ngIf="samplings.length > 0; else noSamplings" class="grid-samplings">
+  <app-sampling
+    *ngFor="let sample of samplings"
+    [value]="sample.value"
+    [date]="sample.date"
+    [hour]="sample.hour"
+  >
+  </app-sampling>
+</section>
+
+<ng-template #noSamplings>
+  <h1>Sem amostras recentes.</h1>
+</ng-template>
