@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { PopoverController, ToastController } from "@ionic/angular";
 import { AddSamplingComponent } from "./components/add-sampling/add-sampling.component";
-import { SamplingService } from "../services/sampling.service";
+import { SamplingService } from "../../services/sampling.service";
 import { Subscription } from "rxjs";
 
 @Component({

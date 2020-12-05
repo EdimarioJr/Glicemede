@@ -1,0 +1,27 @@
+<!--
+  Se o array samplings tiver algo, renderiza a section, se nao renderiza o ng-template
+  Uso o getSamplings() pq ele retorna o array samplings em ordem inversa, assim os adicionados 
+  recentemente ficam no topo.
+-->
+<ion-list *ngIf="samplings.length > 0; else noSamplings" class="grid-samplings">
+  <ion-item-sliding *ngFor="let sample of getSamplings()">
+    <ion-item-options>
+      <ion-item-option color="success" [routerLink]="['detail', sample.id]"
+        >Ver detalhes</ion-item-option
+      >
+      <ion-item-option color="danger">Excluir</ion-item-option>
+    </ion-item-options>
+    <ion-item>
+      <app-sampling
+        [value]="sample.value"
+        [date]="sample.date"
+        [hour]="sample.hour"
+      >
+      </app-sampling>
+    </ion-item>
+  </ion-item-sliding>
+</ion-list>
+
+<ng-template #noSamplings>
+  <h4>Sem amostras recentes.</h4>
+</ng-template>

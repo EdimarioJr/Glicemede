@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { SamplingService } from "../../../services/sampling.service";
+import { SamplingService } from "../../../../services/sampling.service";
 
 @Component({
   selector: "app-samplings-container",
@@ -11,7 +11,17 @@ export class SamplingsContainerComponent implements OnInit {
   samplings = [];
   subscription: Subscription;
 
-  constructor(private samplingService: SamplingService) {}
+  constructor(
+    private samplingService: SamplingService,
+  ) {}
+
+  /*
+    Quando o componente inicia, puxamos todas as amostras e fazemos a subscription no Subject do Service.
+    No subscribe mandamos a função next(), que é a função executada quando um novo valor é recebido.
+    Nela verificamos se o novo valor foi adicionado com sucesso, se sim, adicionamos no array local e 
+    renderizamos. Ao fazer a subscription() garantimos que nosso componente seja avisado cada vez
+    que alguma amostra for adicionada pelo service.  
+   */
 
   ngOnInit() {
     this.samplings = this.samplingService.getAllSamplings();
@@ -20,8 +30,8 @@ export class SamplingsContainerComponent implements OnInit {
       .subscribe((valueSub) => {
         const { success } = valueSub;
         if (success) {
-          const { value, hour, date } = valueSub;
-          this.samplings = [...this.samplings, { value, hour, date }];
+          const { id, value, hour, date } = valueSub;
+          this.samplings = [...this.samplings, { id, value, hour, date }];
         }
       });
   }

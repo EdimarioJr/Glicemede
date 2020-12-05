@@ -1,12 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
-import { SamplingService } from "../../../services/sampling.service";
-
-interface SamplingPopover {
-  value: number;
-  lastMealHour: string;
-  lastMeal: string;
-}
+import { SamplingService } from "../../../../services/sampling.service";
+import { SamplingPopover } from "../../../../interfaces";
 
 @Component({
   selector: "app-add-sampling",
@@ -27,8 +22,11 @@ export class AddSamplingComponent implements OnInit {
 
   ngOnInit() {}
 
+  // Captura a amostra e adiciona
+
   addSampling() {
     this.samplingService.addSampling(this.sampling);
+    console.log(this.samplingService.getAllSamplings())
     this.popover.dismiss();
   }
 }

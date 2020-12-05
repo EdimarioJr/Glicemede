@@ -9,6 +9,7 @@ export class SamplingComponent implements OnInit {
   @Input() date = '';
   @Input() hour = '';
   @Input() value = 0;
+  @Input() id = 0;
   constructor() { }
 
   ngOnInit() {}

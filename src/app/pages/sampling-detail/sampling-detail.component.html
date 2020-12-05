@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="container">Detalhe</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen="true">
+  <section class="container">
+    <ion-item lines="none">
+      <ion-label position="inline">Id:</ion-label>
+      <p>{{ sampling.id }}</p>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="inline">Glicemia:</ion-label>
+      <p>{{ sampling.value }}</p>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="inline">Dia:</ion-label>
+      <p>{{ sampling.date }}</p>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="inline">Hora:</ion-label>
+      <p>{{ sampling.hour }}</p>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label position="inline">Hora da Última Refeição:</ion-label>
+      <p>{{ sampling.lastMealHour }}</p>
+    </ion-item>
+    <div class="last-meal">
+      <h6>Última Refeição:</h6>
+      <p>{{ sampling.lastMeal }}</p>
+    </div>
+  </section>
+</ion-content>

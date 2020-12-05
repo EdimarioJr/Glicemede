@@ -1,5 +1,10 @@
+:host{
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .sampling {
-  padding: 10px 0;
+  padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -7,6 +12,12 @@
   border: 1px dotted var(--ion-color-medium-tint);
   border-radius: 4px;
   margin-bottom: 10px;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.sampling:hover{
+  cursor: pointer;
 }
 
 .sampling__value{

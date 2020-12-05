@@ -1,5 +1,13 @@
 <div class="add-container">
-  <form (ngOnSubmit)="addSampling()" #samplingForm="ngForm">
+  <!-- A abordagem que escolhi foi usar template-driven form, já que esse é um formulário
+  simples e não requer muita validação ou ações programáticas. 
+    o ngSubmit é acionado assim que um botao type="submit" dentro desse form é clicado
+    #samplingForm cria uma variavel local do form. Usamos isso para saber se o form está
+    valido ou não, e assim desativamos o botao submit ou não.
+    Usamos o ngModel em todos os inputs para sincronizar com as propriedades do componente usando
+    o two-way data binding. O required é uma validacao. O name é obrigatório em template-driven
+-->
+  <form (ngSubmit)="addSampling()" #samplingForm="ngForm">
     <h4>Novo Amostral</h4>
     <ion-item>
       <ion-label position="stacked"> glicemia: </ion-label>
@@ -11,6 +19,9 @@
         #value="ngModel"
       ></ion-input>
     </ion-item>
+    <!--
+      A div abaixo vai aparecer se o input estiver invalido e vai mostrar uma mensagem indicando o erro
+    -->
     <div *ngIf="value.invalid && (value.dirty || value.touched)">
       <p class="error-message" color="danger" *ngIf="value.errors.required">
         Campo obrigatório / tem que ser um número!
@@ -35,7 +46,9 @@
         name="lastMeal"
       ></ion-input>
     </ion-item>
-
+    <!--
+      o botao submit vai ser desativado caso o form não esteja valido
+    -->
     <ion-button
       type="submit"
       color="primary"

@@ -1,13 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-
-interface Sampling {
-  date: String;
-  value: Number;
-  hour: String;
-  lastMeal: String;
-  lastMealHour: String;
-}
+import { Sampling } from "../interfaces";
 
 interface ReturnOpMessage {
   success: boolean;
@@ -28,22 +21,21 @@ const MENSAGEMERRO: ReturnOpMessage = {
   providedIn: "root",
 })
 export class SamplingService {
-  samplings: Sampling[] = [
-    {
-      date: new Intl.DateTimeFormat("pt-BR").format(new Date()),
-      value: 110,
-      hour: "08:39",
-      lastMeal: "arroz e feijão",
-      lastMealHour: "15:30",
-    },
-  ];
-
+  samplings: Sampling[] = [];
+  // O Subject responsavel por fazer a transmissão de novos valores e comunicação entre componentes
+  // sem relação direta;
   samplingsSubject: Subject<any> = new Subject();
 
   constructor() {}
 
   getAllSamplings(): Sampling[] {
     return this.samplings;
+  }
+
+  getOneSampling(id: number): Sampling {
+    return this.samplings.find((sampling) => {
+      return sampling.id === id;
+    });
   }
 
   getSubjectSampling(): Subject<any> {
@@ -53,16 +45,18 @@ export class SamplingService {
   addSampling(sampling: any): void {
     if (sampling.value) {
       const { value, lastMeal, lastMealHour } = sampling;
+      let id =
+        Math.floor(Math.random() * (Math.floor(100) - Math.ceil(1))) +
+        Math.ceil(1);
       let fullDate = new Date().toLocaleString();
       let separatedDate = fullDate.split(" ");
 
       const [date, hour] = separatedDate;
       this.samplings = [
         ...this.samplings,
-        { date, hour, value, lastMeal, lastMealHour },
+        { id, date, hour, value, lastMeal, lastMealHour },
       ];
-      console.log(this.samplings);
-      this.samplingsSubject.next({ ...MENSAGEMSUCESSO, date, hour, value });
+      this.samplingsSubject.next({ ...MENSAGEMSUCESSO, date, hour, value ,id });
     } else this.samplingsSubject.next({ ...MENSAGEMERRO });
   }
 }
