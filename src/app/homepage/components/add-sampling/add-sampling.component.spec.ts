@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SamplingsContainerComponent } from './samplings-container.component';
+import { AddSamplingComponent } from './add-sampling.component';
 
-describe('SamplingsContainerComponent', () => {
-  let component: SamplingsContainerComponent;
-  let fixture: ComponentFixture<SamplingsContainerComponent>;
+describe('AddSamplingComponent', () => {
+  let component: AddSamplingComponent;
+  let fixture: ComponentFixture<AddSamplingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SamplingsContainerComponent ],
+      declarations: [ AddSamplingComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SamplingsContainerComponent);
+    fixture = TestBed.createComponent(AddSamplingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

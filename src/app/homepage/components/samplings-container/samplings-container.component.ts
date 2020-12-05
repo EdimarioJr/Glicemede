@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { SamplingService } from "../../../services/sampling.service";
 
 @Component({
@@ -8,13 +9,28 @@ import { SamplingService } from "../../../services/sampling.service";
 })
 export class SamplingsContainerComponent implements OnInit {
   samplings = [];
+  subscription: Subscription;
 
   constructor(private samplingService: SamplingService) {}
 
   ngOnInit() {
-    console.log("entrei")
-    this.samplingService.addSampling(100)
     this.samplings = this.samplingService.getAllSamplings();
-    console.log(this.samplings);
+    this.subscription = this.samplingService
+      .getSubjectSampling()
+      .subscribe((valueSub) => {
+        const { success } = valueSub;
+        if (success) {
+          const { value, hour, date } = valueSub;
+          this.samplings = [...this.samplings, { value, hour, date }];
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  getSamplings() {
+    return this.samplings.slice().reverse();
   }
 }

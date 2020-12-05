@@ -1,14 +1,20 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="container">
-    <ion-title>Início</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title class="container">Início</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <section class="container">
-    <h3>Últimas amostragens</h3>
     <app-sampling-header></app-sampling-header>
-    <app-samplings-container>
-    </app-samplings-container>
+    <app-samplings-container> </app-samplings-container>
+
+    
   </section>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="createPopover($event)">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="spacer"></div>
 </ion-content>

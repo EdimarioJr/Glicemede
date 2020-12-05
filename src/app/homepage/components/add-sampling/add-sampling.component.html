@@ -1,0 +1,46 @@
+<div class="add-container">
+  <form (ngOnSubmit)="addSampling()" #samplingForm="ngForm">
+    <h4>Novo Amostral</h4>
+    <ion-item>
+      <ion-label position="stacked"> glicemia: </ion-label>
+      <ion-input
+        type="number"
+        required
+        [(ngModel)]="sampling.value"
+        name="value"
+        #value="ngModel"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="value.invalid && (value.dirty || value.touched)">
+      <p class="error-message" color="danger" *ngIf="value.errors.required">
+        Campo obrigatório / tem que ser um número!
+      </p>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked"> horário da última refeição: </ion-label>
+      <ion-input
+        type="time"
+        optional
+        [(ngModel)]="sampling.lastMealHour"
+        name="lastMealHour"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"> alimento última refeição: </ion-label>
+      <ion-input
+        type="text"
+        optional
+        [(ngModel)]="sampling.lastMeal"
+        name="lastMeal"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button
+      type="submit"
+      color="primary"
+      [disabled]="!samplingForm.form.valid"
+      >Adicionar</ion-button
+    >
+  </form>
+</div>

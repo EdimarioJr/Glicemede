@@ -40,6 +40,24 @@ body {
 }
 
 .container {
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
+}
+
+.add-sampling div {
+  --width: 90%;
+  top: 25% !important;
+  left: 15px !important;
+}
+
+app-add-sampling{
+  height: 100%;
+}
+
+app-add-sampling .add-container{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 20px;
 }

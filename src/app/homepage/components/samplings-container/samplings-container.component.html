@@ -1,6 +1,6 @@
 <section *ngIf="samplings.length > 0; else noSamplings" class="grid-samplings">
   <app-sampling
-    *ngFor="let sample of samplings"
+    *ngFor="let sample of getSamplings()"
     [value]="sample.value"
     [date]="sample.date"
     [hour]="sample.hour"
