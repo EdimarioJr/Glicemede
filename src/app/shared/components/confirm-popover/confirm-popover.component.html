@@ -1,0 +1,27 @@
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h4>{{ message }}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          expand="block"
+          color="success"
+          (click)="setConfirmation(true)"
+          >Sim</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button
+          expand="block"
+          color="danger"
+          (click)="setConfirmation(false)"
+          >Não</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

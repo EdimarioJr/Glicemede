@@ -9,7 +9,9 @@
       <ion-item-option color="success" [routerLink]="['detail', sample.id]"
         >Ver detalhes</ion-item-option
       >
-      <ion-item-option color="danger">Excluir</ion-item-option>
+      <ion-item-option color="danger" (click)="createConfirmPopover($event, 0, sample.id)"
+        >Excluir</ion-item-option
+      >
     </ion-item-options>
     <ion-item>
       <app-sampling

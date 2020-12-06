@@ -61,3 +61,10 @@ app-add-sampling .add-container{
   place-items: center;
   padding: 20px;
 }
+
+.confirm-popover div{
+  --min-width: 90%;
+  padding: 15px;
+  text-align: center;
+  left: 20px;
+}

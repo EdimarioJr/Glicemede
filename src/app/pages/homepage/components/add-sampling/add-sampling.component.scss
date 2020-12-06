@@ -4,7 +4,7 @@ ion-item{
 }
 
 ion-button{
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 h4{
@@ -14,4 +14,8 @@ h4{
 .error-message{
     font-size: 10px;
     color: var(--ion-color-danger-shade);
+}
+
+form{
+    width: 90%;
 }

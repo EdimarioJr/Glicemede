@@ -39,12 +39,11 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked"> alimento última refeição: </ion-label>
-      <ion-input
-        type="text"
+      <ion-textarea
         optional
         [(ngModel)]="sampling.lastMeal"
         name="lastMeal"
-      ></ion-input>
+      ></ion-textarea>
     </ion-item>
     <!--
       o botao submit vai ser desativado caso o form não esteja valido
@@ -52,6 +51,7 @@
     <ion-button
       type="submit"
       color="primary"
+      expand="block"
       [disabled]="!samplingForm.form.valid"
       >Adicionar</ion-button
     >

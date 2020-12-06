@@ -26,7 +26,6 @@ export class AddSamplingComponent implements OnInit {
 
   addSampling() {
     this.samplingService.addSampling(this.sampling);
-    console.log(this.samplingService.getAllSamplings())
     this.popover.dismiss();
   }
 }

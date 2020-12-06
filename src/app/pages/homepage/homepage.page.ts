@@ -10,15 +10,16 @@ import { Subscription } from "rxjs";
   styleUrls: ["homepage.page.scss"],
 })
 export class HomePage implements OnDestroy, OnInit {
-  subscription: Subscription;
+  subscriptionSampling: Subscription;
+  subscriptionConfirmPopover: Subscription;
 
   constructor(
     private popCtrl: PopoverController,
     private samplingService: SamplingService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
   ) {}
 
-  async createPopover(ev: any, i: number) {
+  async createFormPopover(ev: any, i: number) {
     const pop = await this.popCtrl.create({
       component: AddSamplingComponent,
       cssClass: "add-sampling",
@@ -30,12 +31,9 @@ export class HomePage implements OnDestroy, OnInit {
     return await pop.present();
   }
 
-  async presentToast(value: any) {
-    const { success } = value;
+  async presentToast(success: boolean) {
     const toast = await this.toastCtrl.create({
-      message: success
-        ? "Glicemia adicionada!"
-        : "Glicemia não adicionada!",
+      message: success ? "Glicemia adicionada!" : "Glicemia não adicionada!",
       duration: 2000,
       color: success ? "primary" : "danger",
     });
@@ -43,14 +41,15 @@ export class HomePage implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.samplingService
+    this.subscriptionSampling = this.samplingService
       .getSubjectSampling()
-      .subscribe((value) => {
-        this.presentToast(value);
+      .subscribe(({ success }) => {
+        this.presentToast(success);
       });
+    
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptionSampling.unsubscribe();
   }
 }
