@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Sampling } from "../interfaces";
+import { AngularFirestore } from "@angular/fire/firestore";
+import * as firebase from "firebase/app";
 
 interface ReturnOpMessage {
   success: boolean;
@@ -21,36 +23,42 @@ const MENSAGEMERRO: ReturnOpMessage = {
   providedIn: "root",
 })
 export class SamplingService {
-  samplings: Sampling[] = [
-  ];
+  samplings: Sampling[] = [];
   // O Subject responsavel por fazer a transmissão de novos valores e comunicação entre componentes
   // sem relação direta;
   samplingsSubject: Subject<any> = new Subject();
 
-  constructor() {}
+  constructor(private firestore: AngularFirestore) {}
 
-  getAllSamplings(): Sampling[] {
-    return this.samplings;
+  getAllSamplings(): Observable<any> {
+    // é um observable que vai notificar todas as mudanças na collection para quem der o subscribe
+    // como opção adicional estou especificando que ele retorne o id do FIREBASE como "id"
+    return this.firestore
+      .collection("samplings")
+      .valueChanges({ idField: "id" });
   }
 
-  getOneSampling(id: number): Sampling {
-    return this.samplings.find((sampling) => {
-      return sampling.id === id;
-    });
+  getOneSampling(id: string): Observable<any> {
+    // Puxando um documento pelo seu id gerado automaticamente pelo firebase
+    return this.firestore
+      .collection("samplings", (ref) =>
+        ref
+          .where(firebase.default.firestore.FieldPath.documentId(), "==", id)
+          .limit(1)
+      )
+      .valueChanges();
   }
 
-  deleteSampling(id: number): any {
-    const index = this.samplings.findIndex((sampling) => sampling.id === id);
-    if (index !== -1) {
-      this.samplings.splice(index, 1);
+  deleteSampling(id: string): any {
+    if (id) {
+      this.firestore.collection("samplings").doc(id).delete();
       return {
-        ...MENSAGEMSUCESSO,
-        samplings: this.samplings
-      }
+        ...MENSAGEMSUCESSO
+      };
     } else {
       return {
-        ...MENSAGEMERRO
-      }
+        ...MENSAGEMERRO,
+      };
     }
   }
 
@@ -61,18 +69,19 @@ export class SamplingService {
   addSampling(sampling: any): void {
     if (sampling.value) {
       const { value, lastMeal, lastMealHour } = sampling;
-      let id =
-        Math.floor(Math.random() * (Math.floor(100) - Math.ceil(1))) +
-        Math.ceil(1);
       let fullDate = new Date().toLocaleString();
       let separatedDate = fullDate.split(" ");
 
       const [date, hour] = separatedDate;
-      this.samplings = [
-        ...this.samplings,
-        { id, date, hour, value, lastMeal, lastMealHour },
-      ];
-      this.samplingsSubject.next({ ...MENSAGEMSUCESSO, date, hour, value, id });
+      // adicionando a amostra no firebase
+      this.firestore.collection("samplings").add({
+        value,
+        date,
+        hour,
+        lastMeal,
+        lastMealHour,
+      });
+      this.samplingsSubject.next({ ...MENSAGEMSUCESSO });
     } else this.samplingsSubject.next({ ...MENSAGEMERRO });
   }
 }

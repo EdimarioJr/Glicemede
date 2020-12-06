@@ -4,7 +4,7 @@
   recentemente ficam no topo.
 -->
 <ion-list *ngIf="samplings.length > 0; else noSamplings" class="grid-samplings">
-  <ion-item-sliding *ngFor="let sample of getSamplings()">
+  <ion-item-sliding *ngFor="let sample of samplings">
     <ion-item-options>
       <ion-item-option color="success" [routerLink]="['detail', sample.id]"
         >Ver detalhes</ion-item-option

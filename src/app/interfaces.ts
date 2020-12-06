@@ -5,7 +5,7 @@ export interface SamplingPopover {
 }
 
 export interface Sampling {
-  id: number;
+  id: string;
   date: string;
   value: number;
   hour: string;

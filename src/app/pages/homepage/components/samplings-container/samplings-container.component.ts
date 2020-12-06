@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { PopoverController } from "@ionic/angular";
-import { Subscription } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { SamplingService } from "../../../../services/sampling.service";
 import { ConfirmPopoverComponent } from "../../../../shared/components/confirm-popover/confirm-popover.component";
 import { ConfirmService } from "../../../../services/confirm.service";
@@ -14,8 +14,8 @@ export class SamplingsContainerComponent implements OnInit {
   samplings = [];
   subscriptionSampling: Subscription;
   subscriptionConfirmPopover: Subscription;
-
-  idAboutToBeDeleted: number;
+  @Output() deleted = new EventEmitter<boolean>();
+  idAboutToBeDeleted: string;
 
   constructor(
     private samplingService: SamplingService,
@@ -31,14 +31,19 @@ export class SamplingsContainerComponent implements OnInit {
     que alguma amostra for adicionada pelo service.  
    */
 
-  deleteSampling(id: number) {
-    const { success, samplings } = this.samplingService.deleteSampling(id);
+  deleteSampling(id: string) {
+    const { success } = this.samplingService.deleteSampling(id);
     if (success) {
-      this.samplings = samplings.slice();
+      this.deleted.emit(true);
     }
   }
+  /*
+    A função abaixo cria o popover de confirmação quando o usuário quer deletar uma amostra de glicemia.
+    Ele guarda o id da amostra prestes a ser excluida na propriedade local e chama o popover.
+    A escolha do usuário vai ser notificada pelo subscriber.
+   */
 
-  async createConfirmPopover(ev: any, i: number, id: number) {
+  async createConfirmPopover(ev: any, i: number, id: string) {
     this.idAboutToBeDeleted = id;
 
     const pop = await this.popCtrl.create({
@@ -54,7 +59,11 @@ export class SamplingsContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.samplings = this.samplingService.getAllSamplings();
+    this.samplingService.getAllSamplings().subscribe((snapshot) => {
+      this.samplings = snapshot;
+    });
+    // Dando subscribe para ficar notificado e receber novas glicemias do usuário
+    /*
     this.subscriptionSampling = this.samplingService
       .getSubjectSampling()
       .subscribe((valueSub) => {
@@ -64,13 +73,15 @@ export class SamplingsContainerComponent implements OnInit {
           this.samplings = [...this.samplings, { id, value, hour, date }];
         }
       });
-
+      */
+    // Dando subscription para saber qual vai ser a escolha do usuário no popover. Se o usuário
+    // confirmar, chama a função que deleta a amostra de glicemia.
     this.subscriptionConfirmPopover = this.confirmService
       .getConfirmSubject()
       .subscribe((confirm) => {
         this.popCtrl.dismiss();
         if (confirm) {
-          this.deleteSampling(this.idAboutToBeDeleted);
+          this.deleteSampling(String(this.idAboutToBeDeleted));
         }
       });
   }
@@ -78,9 +89,5 @@ export class SamplingsContainerComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptionSampling.unsubscribe();
     this.subscriptionConfirmPopover.unsubscribe();
-  }
-
-  getSamplings() {
-    return this.samplings.slice().reverse();
   }
 }

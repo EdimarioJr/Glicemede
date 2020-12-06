@@ -4,6 +4,8 @@ import { Subject } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
+
+// Service apenas para comunicar a escolha do usuário no confirm popover
 export class ConfirmService {
   confirmSubject: Subject<boolean> = new Subject();
 

@@ -16,7 +16,7 @@ export class HomePage implements OnDestroy, OnInit {
   constructor(
     private popCtrl: PopoverController,
     private samplingService: SamplingService,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastController
   ) {}
 
   async createFormPopover(ev: any, i: number) {
@@ -31,9 +31,13 @@ export class HomePage implements OnDestroy, OnInit {
     return await pop.present();
   }
 
-  async presentToast(success: boolean) {
+  async presentToast(success: boolean, exclude: boolean) {
     const toast = await this.toastCtrl.create({
-      message: success ? "Glicemia adicionada!" : "Glicemia não adicionada!",
+      message: exclude
+        ? "Glicemia excluída!"
+        : success
+        ? "Glicemia adicionada!"
+        : "Glicemia não adicionada!",
       duration: 2000,
       color: success ? "primary" : "danger",
     });
@@ -44,9 +48,8 @@ export class HomePage implements OnDestroy, OnInit {
     this.subscriptionSampling = this.samplingService
       .getSubjectSampling()
       .subscribe(({ success }) => {
-        this.presentToast(success);
+        this.presentToast(success, false);
       });
-    
   }
 
   ngOnDestroy() {

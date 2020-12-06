@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <section class="container">
     <app-sampling-header></app-sampling-header>
-    <app-samplings-container> </app-samplings-container>
+    <app-samplings-container (deleted)="presentToast($event, true)"> </app-samplings-container>
 
     
   </section>
