@@ -19,6 +19,16 @@
         #value="ngModel"
       ></ion-input>
     </ion-item>
+    <ion-item lines="none">
+      <ion-label position="stacked">
+        é em jejum?
+        <span [ngClass]="sampling.fasting ? 'fasting' : ''">{{
+          fastingWord
+        }}</span>
+      </ion-label>
+      <ion-toggle (ionChange)="changeToggle($event)"></ion-toggle>
+    </ion-item>
+
     <!--
       A div abaixo vai aparecer se o input estiver invalido e vai mostrar uma mensagem indicando o erro
     -->

@@ -2,6 +2,7 @@ export interface SamplingPopover {
   value: number;
   lastMealHour: string;
   lastMeal: string;
+  fasting: boolean;
 }
 
 export interface Sampling {
@@ -11,4 +12,5 @@ export interface Sampling {
   hour: string;
   lastMeal: string;
   lastMealHour: string;
+  fasting: boolean;
 }

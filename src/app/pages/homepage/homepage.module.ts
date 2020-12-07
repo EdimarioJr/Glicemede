@@ -7,6 +7,7 @@ import { SamplingHeaderComponent } from "./components/sampling-header/sampling-h
 import { SamplingComponent } from "./components/sampling/sampling.component";
 import { SamplingsContainerComponent } from "./components/samplings-container/samplings-container.component";
 import { AddSamplingComponent } from "./components/add-sampling/add-sampling.component";
+import { GroupByDayPipe } from "../../shared/pipes/group-by-day.pipe";
 
 import { HomePageRoutingModule } from "./homepage-routing.module";
 
@@ -17,7 +18,8 @@ import { HomePageRoutingModule } from "./homepage-routing.module";
     SamplingHeaderComponent,
     SamplingComponent,
     SamplingsContainerComponent,
-    AddSamplingComponent
+    AddSamplingComponent,
+    GroupByDayPipe,
   ],
 })
 export class HomePageModule {}

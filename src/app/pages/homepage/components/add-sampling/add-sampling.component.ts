@@ -13,7 +13,10 @@ export class AddSamplingComponent implements OnInit {
     value: 0,
     lastMealHour: "0",
     lastMeal: "",
+    fasting: false,
   };
+
+  fastingWord: string = "não";
 
   constructor(
     private samplingService: SamplingService,
@@ -27,5 +30,11 @@ export class AddSamplingComponent implements OnInit {
   addSampling() {
     this.samplingService.addSampling(this.sampling);
     this.popover.dismiss();
+  }
+
+  changeToggle(event: any) {
+    const checked = event.detail.checked;
+    this.sampling.fasting = checked;
+    checked ? (this.fastingWord = "sim") : (this.fastingWord = "não");
   }
 }

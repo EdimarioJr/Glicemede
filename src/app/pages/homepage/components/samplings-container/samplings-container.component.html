@@ -4,24 +4,34 @@
   recentemente ficam no topo.
 -->
 <ion-list *ngIf="samplings.length > 0; else noSamplings" class="grid-samplings">
-  <ion-item-sliding *ngFor="let sample of samplings">
-    <ion-item-options>
-      <ion-item-option color="success" [routerLink]="['detail', sample.id]"
-        >Ver detalhes</ion-item-option
-      >
-      <ion-item-option color="danger" (click)="createConfirmPopover($event, 0, sample.id)"
-        >Excluir</ion-item-option
-      >
-    </ion-item-options>
-    <ion-item>
-      <app-sampling
-        [value]="sample.value"
-        [date]="sample.date"
-        [hour]="sample.hour"
-      >
-      </app-sampling>
-    </ion-item>
-  </ion-item-sliding>
+  <div *ngFor="let sampleObj of samplings | groupByDay">
+    <h5>Dia {{ sampleObj.daySam }}</h5>
+    <ion-item-sliding *ngFor="let sample of sampleObj.samplings">
+      <ion-item-options>
+        <ion-item-option
+          [ngClass]="sample.fasting ? 'fasting-option' : ''"
+          color="success"
+          [routerLink]="['detail', sample.id]"
+          >Ver detalhes</ion-item-option
+        >
+        <ion-item-option
+          [ngClass]="sample.fasting ? 'fasting-option' : ''"
+          color="danger"
+          (click)="createConfirmPopover($event, 0, sample.id)"
+          >Excluir</ion-item-option
+        >
+      </ion-item-options>
+      <p *ngIf="sample.fasting" class="fasting-advise">em jejum!</p>
+      <ion-item [ngClass]="sample.fasting ? 'fasting' : ''">
+        <app-sampling
+          [value]="sample.value"
+          [date]="sample.date"
+          [hour]="sample.hour"
+        >
+        </app-sampling>
+      </ion-item>
+    </ion-item-sliding>
+  </div>
 </ion-list>
 
 <ng-template #noSamplings>

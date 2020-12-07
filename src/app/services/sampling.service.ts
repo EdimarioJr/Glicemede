@@ -68,7 +68,7 @@ export class SamplingService {
 
   addSampling(sampling: any): void {
     if (sampling.value) {
-      const { value, lastMeal, lastMealHour } = sampling;
+      const { value, lastMeal, lastMealHour, fasting } = sampling;
       let fullDate = new Date().toLocaleString();
       let separatedDate = fullDate.split(" ");
 
@@ -80,6 +80,7 @@ export class SamplingService {
         hour,
         lastMeal,
         lastMealHour,
+        fasting
       });
       this.samplingsSubject.next({ ...MENSAGEMSUCESSO });
     } else this.samplingsSubject.next({ ...MENSAGEMERRO });

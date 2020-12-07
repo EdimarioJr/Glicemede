@@ -62,18 +62,6 @@ export class SamplingsContainerComponent implements OnInit {
     this.samplingService.getAllSamplings().subscribe((snapshot) => {
       this.samplings = snapshot;
     });
-    // Dando subscribe para ficar notificado e receber novas glicemias do usuário
-    /*
-    this.subscriptionSampling = this.samplingService
-      .getSubjectSampling()
-      .subscribe((valueSub) => {
-        const { success } = valueSub;
-        if (success) {
-          const { id, value, hour, date } = valueSub;
-          this.samplings = [...this.samplings, { id, value, hour, date }];
-        }
-      });
-      */
     // Dando subscription para saber qual vai ser a escolha do usuário no popover. Se o usuário
     // confirmar, chama a função que deleta a amostra de glicemia.
     this.subscriptionConfirmPopover = this.confirmService
