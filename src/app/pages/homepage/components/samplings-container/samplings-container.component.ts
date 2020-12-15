@@ -60,6 +60,7 @@ export class SamplingsContainerComponent implements OnInit {
 
   ngOnInit() {
     this.samplingService.getAllSamplings().subscribe((snapshot) => {
+      console.log(snapshot)
       this.samplings = snapshot;
     });
     // Dando subscription para saber qual vai ser a escolha do usuário no popover. Se o usuário

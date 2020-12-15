@@ -1,3 +1,4 @@
+import { IfStmt } from "@angular/compiler";
 import { Pipe, PipeTransform } from "@angular/core";
 import { Sampling } from "../../interfaces";
 
@@ -22,7 +23,28 @@ export class GroupByDayPipe implements PipeTransform {
         });
       }
     });
-    console.log(daySamplings);
-    return daySamplings.reverse();
+
+    // Ordenando as amostras pelo horario
+    daySamplings.forEach((daySampling) => {
+      daySampling.samplings.sort((a: any, b: any) => {
+        return hourToSecond(b.hour) - hourToSecond(a.hour);
+      });
+    });
+    // Ordenando as samplings pela ordem crescente de seu dia;
+    daySamplings.sort((a, b) => {
+      return b.daySam - a.daySam;
+    });
+
+    return daySamplings;
   }
+}
+// Pega os segundos totais de um horario no formato HH:MM:SS
+function hourToSecond(hour: string): number {
+  let totalSeconds = 0;
+  let arrayHour = hour.split(":").map((time) => Number(time));
+  totalSeconds = arrayHour[0] * 3600;
+  totalSeconds += arrayHour[1] * 60;
+  totalSeconds += arrayHour[2];
+
+  return totalSeconds;
 }
