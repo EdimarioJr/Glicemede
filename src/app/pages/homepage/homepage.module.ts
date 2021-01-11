@@ -1,7 +1,4 @@
-import { IonicModule } from "@ionic/angular";
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
 import { HomePage } from "./homepage.page";
 import { SamplingHeaderComponent } from "./components/sampling-header/sampling-header.component";
 import { SamplingComponent } from "./components/sampling/sampling.component";
@@ -10,9 +7,10 @@ import { AddSamplingComponent } from "./components/add-sampling/add-sampling.com
 import { GroupByDayPipe } from "../../shared/pipes/group-by-day.pipe";
 
 import { HomePageRoutingModule } from "./homepage-routing.module";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
-  imports: [IonicModule, CommonModule, FormsModule, HomePageRoutingModule],
+  imports: [HomePageRoutingModule, SharedModule],
   declarations: [
     HomePage,
     SamplingHeaderComponent,

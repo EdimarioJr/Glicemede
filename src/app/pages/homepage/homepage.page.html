@@ -1,18 +1,12 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title class="container">Início</ion-title>
-  </ion-toolbar>
+  <app-header [title]="'Início'"> </app-header>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <section class="container">
     <app-sampling-header></app-sampling-header>
-    <app-samplings-container (deleted)="presentToast($event, true)"> </app-samplings-container>
-
-    
+    <app-samplings-container (deleted)="presentToast($event, true)">
+    </app-samplings-container>
   </section>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="success" (click)="createFormPopover($event)">

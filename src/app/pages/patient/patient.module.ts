@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { PatientRoutingModule } from './patient-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SimpleMaskModule } from 'ngx-ion-simple-mask'
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    PatientRoutingModule
+    SharedModule,
+    PatientRoutingModule,
   ]
 })
 export class PatientModule { }

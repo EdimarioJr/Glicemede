@@ -28,6 +28,7 @@
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.3.1",
     "firebase": "^8.1.2",
+    "ngx-ion-simple-mask": "^0.8.8",
     "node-sass": "^4.14.1",
     "rxjs": "~6.5.5",
     "save": "^2.4.0",

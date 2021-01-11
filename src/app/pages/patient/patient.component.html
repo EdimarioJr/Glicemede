@@ -1,26 +1,29 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title class="container">Detalhes do Paciente</ion-title>
-  </ion-toolbar>
+  <app-header [title]="'Dados do Paciente'"> </app-header>
 </ion-header>
-<ion-content>
+<ion-content [fullscreen]="true">
   <form>
     <ion-grid class="container">
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label position="stacked">Nome: </ion-label>
-            <ion-input></ion-input>
+            <ion-input type="text"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label position="stacked">Idade: </ion-label>
+            <ion-label position="stacked">CPF: </ion-label>
+            <ion-input type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Data de Nascimento: </ion-label>
             <ion-input type="number"></ion-input>
           </ion-item>
         </ion-col>
@@ -31,7 +34,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row> 
+      <ion-row>
         <ion-col>
           <ion-item>
             <ion-label position="stacked">Altura (em cm): </ion-label>
@@ -39,7 +42,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row> 
+      <ion-row>
         <ion-col>
           <ion-item>
             <ion-label position="stacked">Profissão: </ion-label>
